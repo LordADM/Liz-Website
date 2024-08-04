@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Countdown Timer</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+            background-color: rgb(5, 1, 60);
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            position: relative;
+            display: inline-block;
+        }
+        .timer-background {
+            position: absolute;
+            top: 66%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgb(5, 1, 60);
+            padding: 22px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        #countdown {
+            font-size: 3em;
+            color: #fff;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+        .message-box {
+            position: absolute;
+            top: 8%;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: rgba(5, 1, 60, 0.7);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 1.5em;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="message-box">Liz is moving back to Chicago in:</div>
+        <img src="https://vastphotos.com/files/uploads/photos/10589/chicago-night-photo-vast-xl.jpg?v=20220712073521" alt="Countdown Image">
+        <div class="timer-background" onclick="toggleFormat()">
+            <div id="countdown" aria-live="polite"></div>
+        </div>
+    </div>
+    <script>
+const countDownDate = new Date("Jun 20, 2025 00:00:00").getTime();
+let formatIndex = 0;
+
+function padZero(num) {
+    return num.toString().padStart(2, '0');
+}
+
+function formatNumber(num) {
+    return num >= 1000 ? num.toLocaleString() : num;
+}
+
+function updateCountdown() {
+    const now = new Date().getTime();
+    const distance = countDownDate - now;
+
+    if (distance < 0) {
+        clearInterval(x);
+        document.getElementById("countdown").innerHTML = "EXPIRED";
+        return;
+    }
+
+    const months = Math.floor(distance / (1000 * 60 * 60 * 24 * 30.44));
+    const days = Math.floor((distance % (1000 * 60 * 60 * 24 * 30.44)) / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+    const totalDays = Math.floor(distance / (1000 * 60 * 60 * 24));
+    const totalHours = Math.floor(distance / (1000 * 60 * 60));
+    const totalMinutes = Math.floor(distance / (1000 * 60));
+    const totalSeconds = Math.floor(distance / 1000);
+
+    let displayText;
+    switch (formatIndex) {
+        case 0: // Months, days, hours, minutes, seconds
+            displayText = `${formatNumber(months)}m ${padZero(days)}d ${padZero(hours)}h ${padZero(minutes)}m ${padZero(seconds)}s`;
+            break;
+        case 1: // Days, hours, minutes, seconds
+            displayText = `${formatNumber(totalDays)}d ${padZero(hours)}h ${padZero(minutes)}m ${padZero(seconds)}s`;
+            break;
+        case 2: // Hours, minutes, seconds
+            displayText = `${formatNumber(totalHours)}h ${padZero(minutes)}m ${padZero(seconds)}s`;
+            break;
+        case 3: // Minutes, seconds
+            displayText = `${formatNumber(totalMinutes)}m ${padZero(seconds)}s`;
+            break;
+        case 4: // Seconds
+            displayText = `${formatNumber(totalSeconds)}s`;
+            break;
+    }
+
+    document.getElementById("countdown").innerHTML = displayText;
+}
+
+function toggleFormat() {
+    formatIndex = (formatIndex + 1) % 5;
+    updateCountdown();
+}
+
+const x = setInterval(updateCountdown, 1000);
+updateCountdown(); // Initial call to avoid delay
+    </script>
+</body>
+</html>
