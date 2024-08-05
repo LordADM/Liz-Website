@@ -18,6 +18,7 @@
         .container {
             position: relative;
             display: inline-block;
+            max-width: 100%;
         }
         .timer-background {
             position: absolute;
@@ -50,12 +51,39 @@
             font-size: 1.5em;
             text-align: center;
         }
+    
+        /* Media queries for mobile devices */
+        @media screen and (max-width: 768px) {
+            .container {
+                width: 95%;
+            }
+            .timer-background {
+                padding: 15px 10px;
+            }
+            #countdown {
+                font-size: 2em;
+            }
+            .message-box {
+                font-size: 1.2em;
+                padding: 8px 15px;
+            }
+        }
+    
+        @media screen and (max-width: 480px) {
+            #countdown {
+                font-size: 1.5em;
+            }
+            .message-box {
+                font-size: 1em;
+                padding: 5px 10px;
+            }
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="message-box">Liz is moving back to Chicago in:</div>
-        <img src="https://vastphotos.com/files/uploads/photos/10589/chicago-night-photo-vast-xl.jpg?v=20220712073521" alt="Countdown Image">
+        <img src="chicago-night-photo.png" alt="Countdown Image">
         <div class="timer-background" onclick="toggleFormat()">
             <div id="countdown" aria-live="polite"></div>
         </div>
