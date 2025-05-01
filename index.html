@@ -166,7 +166,7 @@ function updateCountdown() {
     let displayText;
     switch (formatIndex) {
         case 0: // Months, days, hours, minutes, seconds
-            displayText = `${formatNumber(months)}m ${padZero(days)}d ${padZero(hours)}h ${padZero(minutes)}m ${padZero(seconds)}s`;
+            displayText = `${formatNumber(months)}M ${padZero(days)}d ${padZero(hours)}h ${padZero(minutes)}m ${padZero(seconds)}s`;
             break;
         case 1: // Days, hours, minutes, seconds
             displayText = `${formatNumber(totalDays)}d ${padZero(hours)}h ${padZero(minutes)}m ${padZero(seconds)}s`;
